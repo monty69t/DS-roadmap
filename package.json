@@ -1,0 +1,9 @@
+{
+  "name": "ds-roadmap",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Интерактивный роадмап по Data Science с отслеживанием прогресса",
+  "scripts": {
+    "dev": "node server.js"
+  }
+}

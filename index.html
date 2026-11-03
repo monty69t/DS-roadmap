@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DS Roadmap — путь в Data Science с нуля</title>
+  <meta name="description" content="Интерактивный роадмап по Data Science с отслеживанием прогресса" />
+
+  <!-- Анимационные фреймворки (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
+</head>
+<body>
+
+  <!-- Фоновые эффекты -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+
+  <!-- Шапка с общим прогрессом -->
+  <header class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <a class="logo" href="#hero">
+        <span class="logo__mark">DS</span>
+        <span class="logo__text">Roadmap</span>
+      </a>
+
+      <div class="topbar__progress">
+        <svg class="ring" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true">
+          <circle class="ring__bg" cx="22" cy="22" r="19"></circle>
+          <circle class="ring__fill" id="ringFill" cx="22" cy="22" r="19"></circle>
+        </svg>
+        <div class="topbar__progress-text">
+          <strong id="overallPct">0%</strong>
+          <span>пройдено</span>
+        </div>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="btn btn--ghost" id="btnExport" title="Скачать прогресс в файл">⬇ Экспорт</button>
+        <button class="btn btn--ghost" id="btnImport" title="Загрузить прогресс из файла">⬆ Импорт</button>
+        <button class="btn btn--danger" id="btnReset" title="Сбросить весь прогресс">Сброс</button>
+        <input type="file" id="importFile" accept="application/json" hidden />
+      </div>
+
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobilenav" id="mobileNav">
+      <div class="mobilenav__links" id="mobileNavLinks"></div>
+      <div class="mobilenav__actions">
+        <button class="btn btn--ghost" id="btnExportM">⬇ Экспорт прогресса</button>
+        <button class="btn btn--ghost" id="btnImportM">⬆ Импорт прогресса</button>
+        <button class="btn btn--danger" id="btnResetM">Сбросить прогресс</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <p class="hero__badge animate__animated animate__fadeInDown">интерактивный роадмап · прогресс сохраняется локально</p>
+      <h1 class="hero__title animate__animated animate__fadeInUp">
+        Путь в <span class="grad">Data Science</span><br />с нуля до оффера
+      </h1>
+      <p class="hero__sub animate__animated animate__fadeInUp animate__delay-1s">
+        9 этапов, 30+ тем, конкретные навыки и ресурсы. Отмечайте пройденное —
+        прогресс сохранится в браузере и переживёт перезагрузку.
+      </p>
+      <div class="hero__cta animate__animated animate__fadeInUp animate__delay-2s">
+        <a href="#roadmap" class="btn btn--primary btn--lg">Начать путь ↓</a>
+        <div class="hero__stats">
+          <div><strong id="statTopics">0</strong><span>тем</span></div>
+          <div><strong id="statSkills">0</strong><span>навыков</span></div>
+          <div><strong id="statDone">0</strong><span>выполнено</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- Роадмап -->
+  <main class="roadmap" id="roadmap">
+    <div class="roadmap__line" aria-hidden="true"><div class="roadmap__line-fill" id="lineFill"></div></div>
+    <div id="stages"></div>
+  </main>
+
+  <!-- Финал -->
+  <section class="final" id="final" data-aos="fade-up">
+    <h2>🏁 Дорожная карта пройдена?</h2>
+    <p>Повторяйте слабые места, участвуйте в соревнованиях и прокачивайте портфолио. Удачи!</p>
+  </section>
+
+  <footer class="footer">
+    <p>Сделано с 💜 · Прогресс хранится в localStorage вашего браузера + экспорт в JSON</p>
+  </footer>
+
+  <!-- Тост -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- Конфетти + анимационные библиотеки -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
